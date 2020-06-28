@@ -35,7 +35,7 @@ WORKDIR chromium
 ENTRYPOINT ["/bin/bash"]
 
 RUN fetch --nohooks --no-history chromium
-# RUN cd src
-# RUN gclient runhooks
+RUN cd src
+RUN gclient runhooks
 # RUN gn gen out/Default --args='use_sysroot=false symbol_level=0 blink_symbol_level=0 is_debug=false is_clang=false'
 # RUN autoninja -C out/Default chrome
