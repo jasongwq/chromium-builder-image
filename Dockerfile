@@ -3,7 +3,9 @@ WORKDIR /app
 
 ADD data .
 
-RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo && yum makecache && yum groupinstall -y "Development tools"
+#RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo \
+#    && sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo
+RUN yum makecache && yum groupinstall -y "Development tools"
 RUN yum install -y git python bzip2 tar pkgconfig atk-devel alsa-lib-devel \
     bison binutils brlapi-devel bluez-libs-devel bzip2-devel cairo-devel \
     cups-devel dbus-devel dbus-glib-devel expat-devel fontconfig-devel \
@@ -17,11 +19,11 @@ RUN yum install -y git python bzip2 tar pkgconfig atk-devel alsa-lib-devel \
 
 RUN tar zxf glibc-2.18.tar.gz && cd glibc-2.18/ && mkdir build && cd build/ && ../configure --prefix=/usr && make -j && make install
 
-ENV proxy="http://192.168.0.2:1081"
-ENV http_proxy=$proxy
-ENV https_proxy=$proxy
-ENV ftp_proxy=$proxy
-ENV no_proxy="localhost, 127.0.0.1, ::1"
+#ENV proxy="http://192.168.0.2:1081"
+#ENV http_proxy=$proxy
+#ENV https_proxy=$proxy
+#ENV ftp_proxy=$proxy
+#ENV no_proxy="localhost, 127.0.0.1, ::1"
 
 WORKDIR /root/
 
@@ -32,7 +34,7 @@ WORKDIR chromium
 
 ENTRYPOINT ["/bin/bash"]
 
-# RUN fetch --nohooks --no-history chromium
+RUN fetch --nohooks --no-history chromium
 # RUN cd src
 # RUN gclient runhooks
 # RUN gn gen out/Default --args='use_sysroot=false symbol_level=0 blink_symbol_level=0 is_debug=false is_clang=false'
