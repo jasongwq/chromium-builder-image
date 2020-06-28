@@ -1,4 +1,4 @@
-FROM centos:7.3.1611
+FROM centos:8
 WORKDIR /app
 
 ADD data .
@@ -17,7 +17,7 @@ RUN yum install -y git python bzip2 tar pkgconfig atk-devel alsa-lib-devel \
     pulseaudio-libs-devel zlib httpd mod_ssl php php-cli python-psutil wdiff \
     xorg-x11-server-Xvfb net-tools wget screen which
 
-RUN tar zxf glibc-2.18.tar.gz && cd glibc-2.18/ && mkdir build && cd build/ && ../configure --prefix=/usr && make -j && make install
+#RUN tar zxf glibc-2.18.tar.gz && cd glibc-2.18/ && mkdir build && cd build/ && ../configure --prefix=/usr && make -j && make install
 
 #ENV proxy="http://192.168.0.2:1081"
 #ENV http_proxy=$proxy
