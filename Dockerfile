@@ -1,4 +1,4 @@
-FROM centos:8
+FROM centos:7
 WORKDIR /app
 
 ADD data .
@@ -6,7 +6,7 @@ ADD data .
 #RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo \
 #    && sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo
 RUN yum makecache && yum groupinstall -y "Development tools"
-RUN yum install -y git python bzip2 tar pkgconfig atk-devel alsa-lib-devel \
+RUN yum install -y git python2 bzip2 tar pkgconfig atk-devel alsa-lib-devel \
     bison binutils brlapi-devel bluez-libs-devel bzip2-devel cairo-devel \
     cups-devel dbus-devel dbus-glib-devel expat-devel fontconfig-devel \
     freetype-devel gcc-c++ glib2-devel glibc glibc.i686 gperf glib2-devel \
@@ -17,7 +17,7 @@ RUN yum install -y git python bzip2 tar pkgconfig atk-devel alsa-lib-devel \
     pulseaudio-libs-devel zlib httpd mod_ssl php php-cli python-psutil wdiff \
     xorg-x11-server-Xvfb net-tools wget screen which
 
-#RUN tar zxf glibc-2.18.tar.gz && cd glibc-2.18/ && mkdir build && cd build/ && ../configure --prefix=/usr && make -j && make install
+RUN tar zxf glibc-2.18.tar.gz && cd glibc-2.18/ && mkdir build && cd build/ && ../configure --prefix=/usr && make -j && make install
 
 #ENV proxy="http://192.168.0.2:1081"
 #ENV http_proxy=$proxy
